@@ -1,6 +1,6 @@
 {
   "common": {
-    "siteName": "Dujiao-Next",
+    "siteName": "Shop",
     "loading": "Loading...",
     "error": "Error",
     "success": "Success",
@@ -115,7 +115,7 @@
   },
   "home": {
     "hero": {
-      "title": "Dujiao-Next",
+      "title": "Shop",
       "subtitle": "Professional Products and Services Provider",
       "cta": "Browse Products",
       "badge": "Next Gen Digital Store"
@@ -263,8 +263,8 @@
   },
   "about": {
     "title": "About Us",
-    "subtitle": "Learn about Dujiao-Next",
-    "introduction": "Dujiao-Next is a professional online studio dedicated to providing high-quality products and services to our customers. Innovation, professionalism, and efficiency are our core values, and we constantly pursue excellence to create value for our customers.",
+    "subtitle": "About us",
+    "introduction": "We provide quality digital goods with attentive after-sales support.",
     "ourServices": "Our Services",
     "service1": "Premium Product Recommendations & Sales",
     "service2": "Professional Pre-sales Consulting",
