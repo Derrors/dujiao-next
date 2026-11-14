@@ -39,7 +39,8 @@ func BuildInventoryAlertDispatchPayloads(
 	}
 
 	result := make([]queue.NotificationDispatchPayload, 0, 2)
-	for _, alertType := range []string{constants.NotificationAlertTypeOutOfStockProducts, constants.NotificationAlertTypeLowStockProducts} {
+	// custom: 不推送低库存告警，只保留售罄告警（仪表盘的低库存统计不受影响）。
+	for _, alertType := range []string{constants.NotificationAlertTypeOutOfStockProducts} {
 		group := groups[alertType]
 		if len(group) == 0 {
 			continue

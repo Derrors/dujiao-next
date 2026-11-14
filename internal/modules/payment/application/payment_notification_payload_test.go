@@ -577,27 +577,23 @@ func TestBuildInventoryAlertDispatchPayloadsIncludesSummaryAndIgnoreRules(t *tes
 		},
 	)
 
-	if len(payloads) != 2 {
-		t.Fatalf("expected 2 payloads, got %d", len(payloads))
+	// custom: 低库存告警不再推送，只剩售罄告警。
+	if len(payloads) != 1 {
+		t.Fatalf("expected 1 payload (out of stock only), got %d", len(payloads))
 	}
 
-	var lowStockPayload queue.NotificationDispatchPayload
 	var outOfStockPayload queue.NotificationDispatchPayload
 	for _, item := range payloads {
 		switch fmt.Sprintf("%v", item.Data["alert_type_key"]) {
 		case constants.NotificationAlertTypeLowStockProducts:
-			lowStockPayload = item
+			t.Fatalf("low stock alert should not be dispatched: %v", item.Data)
 		case constants.NotificationAlertTypeOutOfStockProducts:
 			outOfStockPayload = item
 		}
 	}
 
-	lowSummary := fmt.Sprintf("%v", lowStockPayload.Data["affected_items_summary"])
-	if !strings.Contains(lowSummary, "Manual Product / Cycle: 30 days") {
-		t.Fatalf("low stock summary missing manual item: %s", lowSummary)
-	}
-	if !strings.Contains(fmt.Sprintf("%v", lowStockPayload.Data["message"]), "15 minutes") {
-		t.Fatalf("low stock message should include interval text, got: %v", lowStockPayload.Data["message"])
+	if !strings.Contains(fmt.Sprintf("%v", outOfStockPayload.Data["message"]), "15 minutes") {
+		t.Fatalf("out of stock message should include interval text, got: %v", outOfStockPayload.Data["message"])
 	}
 
 	outSummary := fmt.Sprintf("%v", outOfStockPayload.Data["affected_items_summary"])
